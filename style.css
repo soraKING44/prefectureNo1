@@ -1,0 +1,530 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #ff7f00 0%, #ff9933 50%, #ffb366 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff7f00;
+}
+
+.back-link {
+    background: #1a237e;
+    color: white;
+    padding: 8px 20px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    background: #303f9f;
+    transform: translateY(-2px);
+}
+
+.game-info-panel {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.game-area {
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.left-panel {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.right-panel {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+}
+
+.game-main-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.game-info-top {
+    background: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    padding: 1.2rem 1rem .8rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.game-title {
+    color: #1a237e;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    margin-top: 0;
+}
+
+.game-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.game-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin: .7rem 0;
+    justify-content: center;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.message-area {
+    background: #fff8e1;
+    color: #ad6700;
+    border: 2px solid #ffe082;
+    border-radius: 10px;
+    padding: .7rem 1rem;
+    margin: .8rem 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ranking-table {
+    background: #f7f7fa;
+    border-radius: 10px;
+    padding: 1rem 1rem .5rem 1rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    height: 500px;
+    overflow-y: auto;
+    border: 2px solid #e9ecef;
+}
+
+.ranking-row {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s;
+}
+
+.ranking-row:last-child {
+    border-bottom: none;
+}
+
+.ranking-row.revealed {
+    background: #e3f2fd;
+}
+
+.ranking-row.latest {
+    background: #fff9c4;
+}
+
+.ranking-row.winner {
+    background: #ffebee;
+    font-weight: bold;
+}
+
+.rank-number {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #1a237e;
+    width: 40px;
+    text-align: center;
+}
+
+.prefecture-name {
+    flex: 1;
+    font-size: 1rem;
+    color: #333;
+}
+
+.prefecture-hidden {
+    color: #999;
+    font-style: italic;
+}
+
+.map-container {
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.japan-map {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+    display: block;
+}
+
+.map-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #1a237e;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.prefecture-path {
+    fill: #EEEEEE;
+    stroke: #000000;
+    stroke-width: 1.0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.prefecture-path:hover {
+    fill: #d0d0d0;
+}
+
+.prefecture-path.answered {
+    fill: #1976d2;
+}
+
+.prefecture-path.correct {
+    fill: #f44336;
+}
+
+.prefecture-path.hint {
+    fill: #1976d2;
+}
+
+/* GeoloniaのSVG用スタイル */
+.prefectures g {
+    fill: #EEEEEE;
+    stroke: #000000;
+    stroke-width: 1.0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.prefectures g:hover {
+    fill: #d0d0d0;
+}
+
+.prefectures g.answered {
+    fill: #1976d2 !important;
+}
+
+.prefectures g.correct {
+    fill: #f44336 !important;
+}
+
+.prefectures g.hint {
+    fill: #1976d2 !important;
+}
+
+.prefecture-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: auto;
+}
+
+.prefecture-btn {
+    background: #fff;
+    border: 2px solid #1a237e;
+    color: #1a237e;
+    padding: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.prefecture-btn:hover {
+    background: #1a237e;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.prefecture-btn:disabled {
+    background: #f5f5f5;
+    color: #999;
+    border-color: #ddd;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.prefecture-btn:disabled:hover {
+    background: #f5f5f5;
+    color: #999;
+    transform: none;
+}
+
+.game-over {
+    background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.game-over h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.game-rules {
+    background: #e9f5e9;
+    border: 1px solid #c8e6c9;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.rules-title {
+    font-size: 1.2rem;
+    color: #2e7d32;
+    margin-bottom: 0.8rem;
+    text-align: center;
+}
+
+.game-rules ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.game-rules ul li {
+    margin-bottom: 0.5rem;
+    color: #4CAF50;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    position: relative;
+    padding-left: 1.5em;
+}
+
+.game-rules ul li:last-child {
+    margin-bottom: 0;
+}
+
+.game-rules ul li::before {
+    content: '✓';
+    color: #2e7d32;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+@media (max-width: 768px) {
+    .game-area {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .game-title {
+        font-size: 1.5rem;
+    }
+    
+    .prefecture-buttons {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+}
+
+.game-over-global {
+    position: fixed;
+    left: 0; bottom: 0; width: 100vw;
+    background: #fffbe8;
+    color: #1c6600;
+    border-top: 4px solid #4caf50;
+    text-align: center;
+    z-index: 999;
+    padding: 2.5rem 0 2.5rem 0;
+    box-shadow: 0 -2px 16px rgba(44,160,44,.13);
+    font-size: 1.2em;
+}
+
+.version-footer {
+    width: 100vw;
+    text-align: center;
+    font-size: .98em;
+    color: #aaa;
+    background: #f6f6f7;
+    padding: 18px 0 10px 0;
+    margin-top: 2.5rem;
+    letter-spacing: .08em;
+}
+
+.game-rules {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.rules-title {
+    font-size: 1.3rem;
+    color: #1a237e;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.game-rules ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.game-rules ul li {
+    margin-bottom: 0.8rem;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 2em;
+}
+
+.game-rules ul li:last-child {
+    margin-bottom: 0;
+}
+
+.game-rules ul li::before {
+    content: '🎯';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.1rem;
+}
+
+.game-over-global {
+    position: fixed;
+    left: 0; 
+    bottom: 0; 
+    width: 100vw;
+    background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+    color: white;
+    border-top: 4px solid #2e7d32;
+    text-align: center;
+    z-index: 999;
+    padding: 2.5rem 0;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+    font-size: 1.2em;
+}
+
+.data-credit {
+    text-align: left;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: #666;
+    border: 1px solid #e0e0e0;
+    backdrop-filter: blur(2px);
+    margin: 1rem 0 0.5rem 1rem;
+    max-width: 400px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.data-credit a {
+    color: #666;
+    text-decoration: none;
+}
+
+.data-credit a:hover {
+    text-decoration: underline;
+}
+
+.data-credit a {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.data-credit a:hover {
+    text-decoration: underline;
+    color: #1565c0;
+}
+
+@media (max-width: 700px) {
+    .game-main-panel, .game-info-top, .ranking-table {
+        padding-left: 0; padding-right: 0;
+    }
+}

@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "filename": "population2020.js",
+      "title": "人口",
+      "year": "2020"
+    },
+    {
+      "filename": "area.js", 
+      "title": "面積",
+      "year": "2025"
+    },
+    {
+      "filename": "density2020.js",
+      "title": "人口密度",
+      "year": "2020"
+    },
+    {
+      "filename": "manicipalities2025.js",
+      "title": "市町村数",
+      "year": "2025"
+    },
+    {
+      "filename": "elevation.js",
+      "title": "標高の高さ",
+      "year": "2025"
+    },
+    {
+      "filename": "temperature2023.js",
+      "title": "平均気温",
+      "year": "2023"
+    },
+    {
+      "filename": "sunshine_hours2023.js",
+      "title": "日照時間",
+      "year": "2023"
+    },
+    {
+      "filename": "precipitation2023.js",
+      "title": "降水量",
+      "year": "2023"
+    },
+    {
+      "filename": "coastline2016.js",
+      "title": "海岸線の長さ",
+      "year": "2016"
+    }
+  ]
+}
