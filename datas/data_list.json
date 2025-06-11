@@ -44,6 +44,16 @@
       "filename": "coastline2016.js",
       "title": "海岸線の長さ",
       "year": "2016"
+    },
+    {
+      "filename": "trafic_deaths2024.js",
+      "title": "交通事故死者",
+      "year": "2024"
+    },
+    {
+      "filename": "ekiden2024.js",
+      "title": "都道府県対抗駅伝（男子）",
+      "year": "2024"
     }
   ]
 }
