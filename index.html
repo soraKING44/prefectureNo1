@@ -242,19 +242,18 @@
         async function initGame() {
             await waitForRankingData();
             loadJapanMap();
-            const randomRank = Math.floor(Math.random() * 46) + 2;
-            // 該当順位の県からランダムに1つ選択
-            const sameRankPrefectures = window.rankingData.filter(item => item.rank === randomRank);
-            const randomIndex = Math.floor(Math.random() * sameRankPrefectures.length);
-            const selectedPrefecture = sameRankPrefectures[randomIndex];
+            // 1位以外の県からランダムに選択
+            const nonFirstPlacePrefectures = window.rankingData.filter(item => item.rank !== 1);
+            const randomIndex = Math.floor(Math.random() * nonFirstPlacePrefectures.length);
+            const selectedPrefecture = nonFirstPlacePrefectures[randomIndex];
             
-            gameState.initialHint = randomRank;
-            gameState.initialHintPrefecture = selectedPrefecture.name; // 選ばれた県名を保存
-            gameState.revealedRanks.add(randomRank);
+            gameState.initialHint = selectedPrefecture.rank;
+            gameState.initialHintPrefecture = selectedPrefecture.name;
+            gameState.revealedRanks.add(selectedPrefecture.rank);
             renderRankingTable();
             renderPrefectureButtons();
             updateGameStats();
-            updateMessage(`ヒント: ${selectedPrefecture.name}は${randomRank}位です`);
+            updateMessage(`ヒント: ${selectedPrefecture.name}は${selectedPrefecture.rank}位です`);
         }
         // // 初期化
         // async function initGame() {
