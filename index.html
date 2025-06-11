@@ -214,8 +214,10 @@
                             group.classList.add('correct');
                         } else if (gameState.answeredPrefectures.has(prefectureName)) {
                             group.classList.add('answered');
-                        } else if (gameState.initialHint && window.rankingData[gameState.initialHint-1].name === prefectureName) {
+                        } else if (gameState.initialHintPrefecture === prefectureName) {
                             group.classList.add('hint');
+                        // } else if (gameState.initialHint && window.rankingData[gameState.initialHint-1].name === prefectureName) {
+                        //     group.classList.add('hint');
                         }
                     }
                     else if (gameState.answeredPrefectures.has(prefectureName)) {
@@ -241,22 +243,42 @@
             await waitForRankingData();
             loadJapanMap();
             const randomRank = Math.floor(Math.random() * 46) + 2;
+            // 該当順位の県からランダムに1つ選択
+            const sameRankPrefectures = window.rankingData.filter(item => item.rank === randomRank);
+            const randomIndex = Math.floor(Math.random() * sameRankPrefectures.length);
+            const selectedPrefecture = sameRankPrefectures[randomIndex];
+            
             gameState.initialHint = randomRank;
+            gameState.initialHintPrefecture = selectedPrefecture.name; // 選ばれた県名を保存
             gameState.revealedRanks.add(randomRank);
             renderRankingTable();
             renderPrefectureButtons();
             updateGameStats();
-            updateMessage(`ヒント: ${window.rankingData[randomRank-1].name}は${randomRank}位です`);
+            updateMessage(`ヒント: ${selectedPrefecture.name}は${randomRank}位です`);
         }
+        // // 初期化
+        // async function initGame() {
+        //     await waitForRankingData();
+        //     loadJapanMap();
+        //     const randomRank = Math.floor(Math.random() * 46) + 2;
+        //     gameState.initialHint = randomRank;
+        //     gameState.revealedRanks.add(randomRank);
+        //     renderRankingTable();
+        //     renderPrefectureButtons();
+        //     updateGameStats();
+        //     updateMessage(`ヒント: ${window.rankingData[randomRank-1].name}は${randomRank}位です`);
+        // }
 
         // ランキング表の描画
         function renderRankingTable() {
             const table = document.getElementById('ranking-table');
             let html = '';
             window.rankingData.forEach(item => {
-                // 回答済みの県、または初期ヒントの県のみ表示（同順位でも初期ヒントの県のみ）
-                const isInitialHintPrefecture = gameState.initialHint === item.rank && 
-                                               window.rankingData[gameState.initialHint-1].name === item.name;
+                // 回答済みの県、または初期ヒントの県のみ表示
+                const isInitialHintPrefecture = gameState.initialHintPrefecture === item.name;
+                // // 回答済みの県、または初期ヒントの県のみ表示（同順位でも初期ヒントの県のみ）
+                // const isInitialHintPrefecture = gameState.initialHint === item.rank && 
+                //                                window.rankingData[gameState.initialHint-1].name === item.name;
                 if (gameState.answeredPrefectures.has(item.name) || isInitialHintPrefecture) {
                     const isLatest = gameState.latestAnsweredPrefecture === item.name;
                     html += `<div class="ranking-row revealed${item.rank === 1 && gameState.gameOver ? ' winner' : ''}${isLatest ? ' latest' : ''}">
@@ -292,7 +314,8 @@
                 button.className = 'prefecture-btn';
                 button.textContent = item.name;
                 const isAnswered = gameState.answeredPrefectures.has(item.name);
-                const isInitialHint = gameState.initialHint === item.rank;
+                const isInitialHint = gameState.initialHintPrefecture === item.name;
+                // const isInitialHint = gameState.initialHint === item.rank;
                 button.disabled = isAnswered || isInitialHint;
                 button.addEventListener('click', () => {
                     answerPrefecture(item.name, item.rank);
