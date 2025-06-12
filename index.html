@@ -328,40 +328,80 @@
 
         // 回答処理
         function answerPrefecture(prefectureName, rank) {
-            // ゲーム終了後の場合は回答回数を増やさない
-            if (!gameState.gameOver) {
-                gameState.answerCount++;
-            }
+            // 1. 共通のデータ更新処理
             gameState.answeredPrefectures.add(prefectureName);
             gameState.latestAnsweredPrefecture = prefectureName;
-            if (rank === 1 && !gameState.gameOver) {
-                gameState.gameOver = true;
-                gameState.revealedRanks.add(1);
-                updateMessage(`🎉 おめでとうございます！1位は${prefectureName}でした！`);
-                showGameOver(prefectureName);
-            } else if (!gameState.gameOver) {
-                gameState.revealedRanks.add(rank);
-                updateMessage(`残念！${prefectureName}は${rank}位でした`);
+            gameState.revealedRanks.add(rank);
+
+            // 2. ゲーム中か、ゲームクリア後かで処理を分岐
+            if (!gameState.gameOver) {
+                // --- ゲーム中の処理 ---
+                gameState.answerCount++;
+                if (rank === 1) {
+                    gameState.gameOver = true;
+                    updateMessage(`🎉 おめでとうございます！1位は${prefectureName}でした！`);
+                    showGameOver(prefectureName);
+                } else {
+                    updateMessage(`残念！${prefectureName}は${rank}位でした`);
+                }
             } else {
-                // ゲーム終了後の場合
-                gameState.revealedRanks.add(rank);
+                // --- ゲームクリア後の処理 ---
                 const additionalInfo = document.getElementById('additional-info');
                 if (additionalInfo) {
                     additionalInfo.textContent = `${prefectureName}は${rank}位でした`;
                 }
             }
+            
+            // 3. 共通の画面更新処理
             renderRankingTable();
             renderPrefectureButtons();
             updateGameStats();
             updateMap();
         }
 
+        // // 回答処理
+        // function answerPrefecture(prefectureName, rank) {
+        //     // ゲーム終了後の場合は回答回数を増やさない
+        //     if (!gameState.gameOver) {
+        //         gameState.answerCount++;
+        //     }
+        //     gameState.answeredPrefectures.add(prefectureName);
+        //     gameState.latestAnsweredPrefecture = prefectureName;
+        //     if (rank === 1 && !gameState.gameOver) {
+        //         gameState.gameOver = true;
+        //         gameState.revealedRanks.add(1);
+        //         updateMessage(`🎉 おめでとうございます！1位は${prefectureName}でした！`);
+        //         showGameOver(prefectureName);
+        //     } else if (!gameState.gameOver) {
+        //         gameState.revealedRanks.add(rank);
+        //         updateMessage(`残念！${prefectureName}は${rank}位でした`);
+        //     } else {
+        //         // ゲーム終了後の場合
+        //         gameState.revealedRanks.add(rank);
+        //         const additionalInfo = document.getElementById('additional-info');
+        //         if (additionalInfo) {
+        //             additionalInfo.textContent = `${prefectureName}は${rank}位でした`;
+        //         }
+        //     }
+        //     renderRankingTable();
+        //     renderPrefectureButtons();
+        //     updateGameStats();
+        //     updateMap();
+        // }
+
         // ゲーム統計の更新
         function updateGameStats() {
+            const totalPrefectures = Object.keys(prefectureCodeMap).length;
             document.getElementById('answer-count').textContent = gameState.answerCount;
-            const remainingChoices = 47 - gameState.answeredPrefectures.size - 1;
-            document.getElementById('remaining-count').textContent = remainingChoices;
+            const remainingChoices = totalPrefectures - gameState.answeredPrefectures.size - 1;
+            document.getElementById('remaining-count').textContent = Math.max(0, remainingChoices); // 残り選択肢がマイナスにならないように配慮
         }
+        // // ゲーム統計の更新
+        // function updateGameStats() {
+        //     document.getElementById('answer-count').textContent = gameState.answerCount;
+        //     const remainingChoices = 47 - gameState.answeredPrefectures.size - 1;
+        //     document.getElementById('remaining-count').textContent = remainingChoices;
+        // }
 
         // メッセージの更新
         function updateMessage(message) {
@@ -378,24 +418,7 @@
                     <div style="margin-bottom: 0.5rem;">1位は <strong>${winnerName}</strong> でした！</div>
                     <div style="margin-bottom: 0.5rem;">回答回数: <strong>${gameState.answerCount}回</strong></div>
                     ${yearText ? `<div style="margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">${yearText}</div>` : ''}
-                    <div id="additional-info" style="margin-bottom: 1rem; font-size: 0.9rem; opacity: 0.8;"></div>
-                    <button onclick="location.reload()" style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer;">もう一度遊ぶ</button>
-                </div>
-            `;
-            messageArea.style.background = 'linear-gradient(135deg, #4caf50 0%, #66bb6a 100%)';
-            messageArea.style.color = 'white';
-            messageArea.style.border = '2px solid #2e7d32';
-        }
-        // ゲーム終了画面（game-info-panelに表示）
-        function showGameOver(winnerName) {
-            const messageArea = document.getElementById('message-area');
-            const yearText = loadedDataTitle ? `${loadedDataTitle}のデータでした！` : '';
-            messageArea.innerHTML = `
-                <div style="text-align: center;">
-                    <div style="font-size: 1.5rem; margin-bottom: 1rem;">🎉 ゲームクリア！ 🎉</div>
-                    <div style="margin-bottom: 0.5rem;">1位は <strong>${winnerName}</strong> でした！</div>
-                    <div style="margin-bottom: 0.5rem;">回答回数: <strong>${gameState.answerCount}回</strong></div>
-                    ${yearText ? `<div style="margin-bottom: 1rem; font-size: 0.9rem; opacity: 0.9;">${yearText}</div>` : ''}
+                    <div id="additional-info" style="margin-top: 1rem; margin-bottom: 1rem; font-size: 0.9rem; opacity: 0.8; min-height: 1.2em;">ゲームクリア後も、気になる県をクリックして順位を確認できます。</div>
                     <button onclick="location.reload()" style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer;">もう一度遊ぶ</button>
                 </div>
             `;
