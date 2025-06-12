@@ -260,11 +260,6 @@
             // 候補の中からランダムに1つ選択
             const randomIndex = Math.floor(Math.random() * hintCandidates.length);
             const selectedPrefecture = hintCandidates[randomIndex];
-
-            // // 1位以外の県からランダムに選択
-            // const nonFirstPlacePrefectures = window.rankingData.filter(item => item.rank !== 1);
-            // const randomIndex = Math.floor(Math.random() * nonFirstPlacePrefectures.length);
-            // const selectedPrefecture = nonFirstPlacePrefectures[randomIndex];
             
             gameState.initialHint = selectedPrefecture.rank;
             gameState.initialHintPrefecture = selectedPrefecture.name;
@@ -359,36 +354,6 @@
             updateMap();
         }
 
-        // // 回答処理
-        // function answerPrefecture(prefectureName, rank) {
-        //     // ゲーム終了後の場合は回答回数を増やさない
-        //     if (!gameState.gameOver) {
-        //         gameState.answerCount++;
-        //     }
-        //     gameState.answeredPrefectures.add(prefectureName);
-        //     gameState.latestAnsweredPrefecture = prefectureName;
-        //     if (rank === 1 && !gameState.gameOver) {
-        //         gameState.gameOver = true;
-        //         gameState.revealedRanks.add(1);
-        //         updateMessage(`🎉 おめでとうございます！1位は${prefectureName}でした！`);
-        //         showGameOver(prefectureName);
-        //     } else if (!gameState.gameOver) {
-        //         gameState.revealedRanks.add(rank);
-        //         updateMessage(`残念！${prefectureName}は${rank}位でした`);
-        //     } else {
-        //         // ゲーム終了後の場合
-        //         gameState.revealedRanks.add(rank);
-        //         const additionalInfo = document.getElementById('additional-info');
-        //         if (additionalInfo) {
-        //             additionalInfo.textContent = `${prefectureName}は${rank}位でした`;
-        //         }
-        //     }
-        //     renderRankingTable();
-        //     renderPrefectureButtons();
-        //     updateGameStats();
-        //     updateMap();
-        // }
-
         // ゲーム統計の更新
         function updateGameStats() {
             const totalPrefectures = Object.keys(prefectureCodeMap).length;
@@ -396,12 +361,6 @@
             const remainingChoices = totalPrefectures - gameState.answeredPrefectures.size - 1;
             document.getElementById('remaining-count').textContent = Math.max(0, remainingChoices); // 残り選択肢がマイナスにならないように配慮
         }
-        // // ゲーム統計の更新
-        // function updateGameStats() {
-        //     document.getElementById('answer-count').textContent = gameState.answerCount;
-        //     const remainingChoices = 47 - gameState.answeredPrefectures.size - 1;
-        //     document.getElementById('remaining-count').textContent = remainingChoices;
-        // }
 
         // メッセージの更新
         function updateMessage(message) {
