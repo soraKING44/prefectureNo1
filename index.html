@@ -216,13 +216,11 @@
                             group.classList.add('answered');
                         } else if (gameState.initialHintPrefecture === prefectureName) {
                             group.classList.add('hint');
-                        // } else if (gameState.initialHint && window.rankingData[gameState.initialHint-1].name === prefectureName) {
-                        //     group.classList.add('hint');
                         }
                     }
                     else if (gameState.answeredPrefectures.has(prefectureName)) {
                         group.classList.add('answered');
-                    } else if (gameState.initialHint && window.rankingData[gameState.initialHint-1].name === prefectureName) {
+                    } else if (gameState.initialHintPrefecture === prefectureName) {
                         group.classList.add('hint');
                     }
                 }
@@ -230,7 +228,7 @@
                 group.onclick = () => {
                     if (prefectureName && !gameState.answeredPrefectures.has(prefectureName)) {
                         const prefectureData = window.rankingData.find(item => item.name === prefectureName);
-                        if (prefectureData && !(gameState.initialHint === prefectureData.rank)) {
+                        if (prefectureData && !(gameState.initialHintPrefecture === prefectureName)) {
                             answerPrefecture(prefectureName, prefectureData.rank);
                         }
                     }
