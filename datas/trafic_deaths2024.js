@@ -1,6 +1,6 @@
 // 都道府県別交通事故死者数ランキングデータ
 // 警察庁：https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00130002&tstat=000001032793&cycle=7&year=20240&month=0
-window.trafficAccidentRankingData = [
+window.rankingData = [
     {rank: 1, name: "東京都", deaths: 146},
     {rank: 2, name: "愛知県", deaths: 141},
     {rank: 3, name: "千葉県", deaths: 131},

@@ -1,6 +1,6 @@
 // 都道府県対抗男子駅伝競走大会 最終結果ランキングデータ (第29回大会 2024年1月21日)
 // https://www.hiroshima-ekiden.com/news/#0304
-window.ekidenRankingData = [
+window.rankingData = [
     {rank: 1, name: "長野", time: "2:16:55"},
     {rank: 2, name: "千葉", time: "2:17:39"},
     {rank: 3, name: "福島", time: "2:18:02"},
