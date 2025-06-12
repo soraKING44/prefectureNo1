@@ -240,10 +240,31 @@
         async function initGame() {
             await waitForRankingData();
             loadJapanMap();
-            // 1位以外の県からランダムに選択
+            // 1位以外の県をすべて取得
             const nonFirstPlacePrefectures = window.rankingData.filter(item => item.rank !== 1);
-            const randomIndex = Math.floor(Math.random() * nonFirstPlacePrefectures.length);
-            const selectedPrefecture = nonFirstPlacePrefectures[randomIndex];
+
+            // 各順位の出現回数をカウント
+            const rankCounts = nonFirstPlacePrefectures.reduce((acc, item) => {
+                acc[item.rank] = (acc[item.rank] || 0) + 1;
+                return acc;
+            }, {});
+
+            // 優先候補として、順位がユニークな県（出現回数が1回）を抽出
+            let hintCandidates = nonFirstPlacePrefectures.filter(item => rankCounts[item.rank] === 1);
+
+            // もしユニークな順位の県がなければ、全候補（1位以外）から選ぶ
+            if (hintCandidates.length === 0) {
+                hintCandidates = nonFirstPlacePrefectures;
+            }
+
+            // 候補の中からランダムに1つ選択
+            const randomIndex = Math.floor(Math.random() * hintCandidates.length);
+            const selectedPrefecture = hintCandidates[randomIndex];
+
+            // // 1位以外の県からランダムに選択
+            // const nonFirstPlacePrefectures = window.rankingData.filter(item => item.rank !== 1);
+            // const randomIndex = Math.floor(Math.random() * nonFirstPlacePrefectures.length);
+            // const selectedPrefecture = nonFirstPlacePrefectures[randomIndex];
             
             gameState.initialHint = selectedPrefecture.rank;
             gameState.initialHintPrefecture = selectedPrefecture.name;
@@ -253,18 +274,6 @@
             updateGameStats();
             updateMessage(`ヒント: ${selectedPrefecture.name}は${selectedPrefecture.rank}位です`);
         }
-        // // 初期化
-        // async function initGame() {
-        //     await waitForRankingData();
-        //     loadJapanMap();
-        //     const randomRank = Math.floor(Math.random() * 46) + 2;
-        //     gameState.initialHint = randomRank;
-        //     gameState.revealedRanks.add(randomRank);
-        //     renderRankingTable();
-        //     renderPrefectureButtons();
-        //     updateGameStats();
-        //     updateMessage(`ヒント: ${window.rankingData[randomRank-1].name}は${randomRank}位です`);
-        // }
 
         // ランキング表の描画
         function renderRankingTable() {
@@ -273,9 +282,6 @@
             window.rankingData.forEach(item => {
                 // 回答済みの県、または初期ヒントの県のみ表示
                 const isInitialHintPrefecture = gameState.initialHintPrefecture === item.name;
-                // // 回答済みの県、または初期ヒントの県のみ表示（同順位でも初期ヒントの県のみ）
-                // const isInitialHintPrefecture = gameState.initialHint === item.rank && 
-                //                                window.rankingData[gameState.initialHint-1].name === item.name;
                 if (gameState.answeredPrefectures.has(item.name) || isInitialHintPrefecture) {
                     const isLatest = gameState.latestAnsweredPrefecture === item.name;
                     html += `<div class="ranking-row revealed${item.rank === 1 && gameState.gameOver ? ' winner' : ''}${isLatest ? ' latest' : ''}">
@@ -312,7 +318,6 @@
                 button.textContent = item.name;
                 const isAnswered = gameState.answeredPrefectures.has(item.name);
                 const isInitialHint = gameState.initialHintPrefecture === item.name;
-                // const isInitialHint = gameState.initialHint === item.rank;
                 button.disabled = isAnswered || isInitialHint;
                 button.addEventListener('click', () => {
                     answerPrefecture(item.name, item.rank);
