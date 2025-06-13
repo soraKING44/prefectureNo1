@@ -389,25 +389,6 @@ header {
     top: 0;
 }
 
-@media (max-width: 768px) {
-    .game-area {
-        grid-template-columns: 1fr;
-    }
-    
-    .header-content {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .game-title {
-        font-size: 1.5rem;
-    }
-    
-    .prefecture-buttons {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    }
-}
-
 .game-over-global {
     position: fixed;
     left: 0; bottom: 0; width: 100vw;
@@ -522,6 +503,148 @@ header {
     text-decoration: underline;
     color: #1565c0;
 }
+
+/* ========== ▼ ここからスマートフォン向け設定 ▼ ========== */
+
+/* 画面幅が768px以下の場合に適用 */
+@media (max-width: 768px) {
+    body {
+        font-size: 90%; /* 全体の基準フォントサイズを少し小さくする */
+    }
+
+    .container {
+        padding: 0.5rem; /* コンテナの余白を減らす */
+    }
+
+    .game-area {
+        grid-template-columns: 1fr; /* 左右パネルを縦並びに */
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .back-link {
+        padding: 6px 16px;
+        font-size: 0.9em;
+    }
+    
+    .game-info-panel, .left-panel, .right-panel, .game-rules {
+        padding: 1rem;
+    }
+
+    .game-title {
+        font-size: 1.5rem;
+    }
+
+    .game-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .game-stats {
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 1.3rem;
+    }
+
+    .message-area {
+        padding: .5rem .8rem;
+        font-size: 1em;
+        min-height: 50px;
+    }
+
+    .left-panel, .right-panel {
+        min-height: auto;
+    }
+    
+    .ranking-table {
+        height: 300px; /* ランキング表の高さを調整 */
+        padding: 0.5rem;
+    }
+        
+    .ranking-row {
+        padding: 0.5rem 0.8rem;
+    }
+
+    .rank-number {
+        font-size: 1rem;
+    }
+
+    .prefecture-name {
+        font-size: 0.9rem;
+    }
+
+    .map-container {
+        min-height: 300px; /* 地図の高さを調整 */
+        margin-bottom: 1rem;
+    }
+
+    .japan-map {
+        height: 300px;
+    }
+
+    .prefecture-buttons {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* ボタンを小さくする */
+        gap: 0.4rem;
+        padding: 0.5rem;
+        max-height: 150px;
+    }
+
+    .prefecture-btn {
+        padding: 0.4rem;
+        font-size: 0.8rem;
+    }
+
+    .data-credit {
+        margin: 1rem auto;
+        font-size: 0.7rem;
+    }
+}
+
+/* 画面幅が480px以下の場合にさらに調整 */
+@media (max-width: 480px) {
+    body {
+        font-size: 85%;
+    }
+
+    .game-title {
+        font-size: 1.3rem;
+    }
+
+    .game-stats {
+        flex-direction: column; /* 回答回数と残り選択肢を縦並びに */
+        gap: 0.5rem;
+        padding: 0.8rem;
+    }
+
+    .map-container {
+        min-height: 250px;
+    }
+    
+    .japan-map {
+        height: 250px;
+    }
+
+    .prefecture-buttons {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    }
+
+    .rules-title {
+        font-size: 1.1rem;
+    }
+}
+
+/* ========== ▲ ここまでスマートフォン向け設定 ▲ ========== */
 
 @media (max-width: 700px) {
     .game-main-panel, .game-info-top, .ranking-table {
