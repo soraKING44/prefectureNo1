@@ -509,15 +509,15 @@ header {
 /* 画面幅が768px以下の場合に適用 */
 @media (max-width: 768px) {
     body {
-        font-size: 90%; /* 全体の基準フォントサイズを少し小さくする */
+        font-size: 90%;
     }
 
     .container {
-        padding: 0.5rem; /* コンテナの余白を減らす */
+        padding: 0.5rem;
     }
 
     .game-area {
-        grid-template-columns: 1fr; /* 左右パネルを縦並びに */
+        grid-template-columns: 3fr 7fr;
     }
     
     .header-content {
@@ -568,7 +568,7 @@ header {
     }
     
     .ranking-table {
-        height: 300px; /* ランキング表の高さを調整 */
+        height: 300px;
         padding: 0.5rem;
     }
         
@@ -585,7 +585,7 @@ header {
     }
 
     .map-container {
-        min-height: 300px; /* 地図の高さを調整 */
+        min-height: 300px;
         margin-bottom: 1rem;
     }
 
@@ -594,7 +594,7 @@ header {
     }
 
     .prefecture-buttons {
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* ボタンを小さくする */
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
         gap: 0.4rem;
         padding: 0.5rem;
         max-height: 150px;
@@ -622,7 +622,7 @@ header {
     }
 
     .game-stats {
-        flex-direction: column; /* 回答回数と残り選択肢を縦並びに */
+        flex-direction: column;
         gap: 0.5rem;
         padding: 0.8rem;
     }
